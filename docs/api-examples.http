@@ -1,0 +1,70 @@
+@baseUrl = http://localhost:5001
+@token = paste_jwt_token_here
+
+### Health check
+GET {{baseUrl}}/health
+
+### Register patient
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Rahul Patient",
+  "email": "patient@example.com",
+  "password": "Patient@123",
+  "role": "patient",
+  "phone": "9876543210"
+}
+
+### Register doctor
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Dr Priya Sharma",
+  "email": "doctor@example.com",
+  "password": "Doctor@123",
+  "role": "doctor",
+  "phone": "9876500000",
+  "doctorProfile": {
+    "specialization": "Cardiology",
+    "qualification": "MBBS, MD",
+    "experienceYears": 8,
+    "consultationFee": 600,
+    "clinicAddress": "MG Road Clinic, Bengaluru"
+  }
+}
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "patient@example.com",
+  "password": "Patient@123"
+}
+
+### Get doctors
+GET {{baseUrl}}/api/doctors
+
+### Add availability as doctor/admin
+POST {{baseUrl}}/api/doctors/2/availability
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "availableDate": "2026-07-01",
+  "startTime": "10:00",
+  "endTime": "10:30"
+}
+
+### Book appointment as patient
+POST {{baseUrl}}/api/appointments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "doctorId": 2,
+  "availabilityId": 1,
+  "reason": "Regular health checkup"
+}

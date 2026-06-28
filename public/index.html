@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-Health Appointment System</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">E-Health Appointment System</p>
+        <h1>Doctor appointments, managed clearly.</h1>
+      </div>
+      <div class="status-pill" id="sessionStatus">Not logged in</div>
+    </header>
+
+    <main class="layout">
+      <section class="panel auth-panel">
+        <div class="tabs" role="tablist" aria-label="Authentication">
+          <button class="tab active" data-tab="login" type="button">Login</button>
+          <button class="tab" data-tab="patient" type="button">Patient Signup</button>
+          <button class="tab" data-tab="doctor" type="button">Doctor Signup</button>
+        </div>
+
+        <form class="stack auth-form" id="loginForm" data-panel="login">
+          <label>Email
+            <input name="email" type="email" value="patient@example.com" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" value="Patient@123" required>
+          </label>
+          <button class="primary" type="submit">Login</button>
+        </form>
+
+        <form class="stack auth-form hidden" id="patientForm" data-panel="patient">
+          <label>Name
+            <input name="name" value="Rahul Patient" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" value="patient@example.com" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" value="Patient@123" required>
+          </label>
+          <label>Phone
+            <input name="phone" value="9876543210">
+          </label>
+          <button class="primary" type="submit">Create Patient</button>
+        </form>
+
+        <form class="stack auth-form hidden" id="doctorForm" data-panel="doctor">
+          <label>Name
+            <input name="name" value="Dr Priya Sharma" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" value="doctor@example.com" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" value="Doctor@123" required>
+          </label>
+          <label>Specialization
+            <input name="specialization" value="Cardiology" required>
+          </label>
+          <label>Qualification
+            <input name="qualification" value="MBBS, MD">
+          </label>
+          <label>Experience Years
+            <input name="experienceYears" type="number" min="0" value="8">
+          </label>
+          <label>Fee
+            <input name="consultationFee" type="number" min="0" value="600">
+          </label>
+          <label>Clinic Address
+            <input name="clinicAddress" value="MG Road Clinic, Bengaluru">
+          </label>
+          <button class="primary" type="submit">Create Doctor</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Doctors</p>
+            <h2>Available specialists</h2>
+          </div>
+          <button class="secondary" id="refreshDoctors" type="button">Refresh</button>
+        </div>
+        <div class="list" id="doctorList"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Doctor Tools</p>
+            <h2>Add availability</h2>
+          </div>
+        </div>
+        <form class="grid-form" id="availabilityForm">
+          <label>Doctor ID
+            <input name="doctorId" type="number" min="1" placeholder="Example: 3" required>
+          </label>
+          <label>Date
+            <input name="availableDate" type="date" required>
+          </label>
+          <label>Start
+            <input name="startTime" type="time" required>
+          </label>
+          <label>End
+            <input name="endTime" type="time" required>
+          </label>
+          <button class="primary" type="submit">Add Slot</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Patient Tools</p>
+            <h2>Book appointment</h2>
+          </div>
+        </div>
+        <form class="grid-form" id="bookingForm">
+          <label>Doctor ID
+            <input name="doctorId" type="number" min="1" placeholder="Example: 3" required>
+          </label>
+          <label>Availability ID
+            <input name="availabilityId" type="number" min="1" placeholder="Example: 1" required>
+          </label>
+          <label class="wide">Reason
+            <input name="reason" value="Regular health checkup" required>
+          </label>
+          <button class="primary" type="submit">Book</button>
+        </form>
+      </section>
+
+      <section class="panel wide-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Appointments</p>
+            <h2>Your appointment records</h2>
+          </div>
+          <button class="secondary" id="loadAppointments" type="button">Load</button>
+        </div>
+        <div class="list appointment-list" id="appointmentList"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
